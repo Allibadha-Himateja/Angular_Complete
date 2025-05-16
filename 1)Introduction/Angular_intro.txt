@@ -1,0 +1,70 @@
+//
+THIS IS THE INTRODUCTION TO ANGULAR
+
+ANGULAR IS A FRONTEND FRAMEWORK WHICH IS USED TO BUILD THE RESPONSIVE APPLICATION
+THIS IS BUILD BY GOOGLE
+
+// LETS JUMP INTO INSTALLTION OF ANGULAR INTO YOUR LOCAL SYSTEM
+
+-- FIRST THIS IS ANGULAR APPLICATION ARE HANDLED ON TOP OF ANGULAR CLI(COMMAND LINE INTERFACE)
+SO WE NEED TO INSTALL THE ANGULAR CLI IN ORDER TO BUILD THE ANGULAR APPLICATIONS
+
+-- installation of angular/cli
+-- open command prompt in your local system and enter this
+>npm i -g angular/cli
+
+-- after completion of installation for verfiying the installation enter
+> ng --version
+
+/// this is the end of installation of angular in your local system
+
+// NOW WE WILL CREATE First angular application with below commands
+
+--ng new "app-name" 
+	ng new "first-app" ,click enter
+
+	>> this will display few options for you to choose
+	which stylesheet format would you like to use??
+	>> CSS 
+	>> Sass (SCSS)
+	>> Sass (Indented)
+	>> Less 
+
+	we will discuss about them very shortly
+
+--choose the CSS ,click enter
+	>> another Question is asked 
+	>> Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)?(y/N)
+
+-- enter N,click enter
+	>> THE INSTALLATION OF ALL THE default packages and angular libraries are installed into your first application
+
+
+before getting in depth for undertanding the architecture we should understand the options which the angular cli have provided us before creation of the application
+
+QUESTION 1)
+ which stylesheet format would you like to use??
+ >> CSS (cascading style sheet) like for .css file
+ >> Sass (SCSS)  it is a modern version of Stylesheet .scss
+	the syntax for styling is modern and new 
+ >> Sass (Indented) this is another kind of stylesheet version .sass
+	not that modern 
+ >> Less another kind .....
+
+
+ QUESTION 2) 
+ Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)?
+
+ what is server-side rendering 
+	the server node.js prerenders the html before sending it to browser
+	after loading the angular takes over(hydration) and makes the app interactive
+
+	used when we need fast reloads 
+	blogs,documentation,portfolios...
+
+ what is Static site generation?
+	at build time (ng build) angular generates the static html file for specific routes..
+
+basically if you reaally need anything related to prerendering and prebuilding then you can go with yes....
+
+/// THAT WAS THE END OF CREATING ANGULAR APPLICATION....
