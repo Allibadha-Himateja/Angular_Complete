@@ -1,0 +1,172 @@
+// this file will introduce angular syntax to you in detail
+
+after creating an angular application you are given some files
+/src/
+-main.ts
+-index.html
+-app folder
+	-app.component.ts
+	-app.component.html
+	-app.component.css
+	-app.config.ts
+	-app.routes.ts
+
+so understanding the syntax from index.html
+
+inside the index.html we are having html syntax which is having 
+	<app-root></app-root> 
+
+	this thing here is called the component selector 
+	this component selector is used inside the html for rendering the root(app component) into the browser
+this ap component is all that inside the app folder
+
+///starting with app.component.html
+	this is the root component's template 
+		this will be displayed when we render the indec.html file from the src folder
+
+	because you have used the component selector app-root right
+
+///second is app.component.ts
+	THIS IS MOST IMPORTANT PART OF THE COMPONENT
+	LETS UNDERSTAND IT IN DEPTH
+
+	import { Component } from '@angular/core';
+
+	@Component({
+	  selector: 'app-root',
+	  imports: [],
+	  templateUrl: './app.component.html',
+	  styleUrl: './app.component.css'
+	})
+	export class AppComponent {
+	  title = 'First-App';
+	}
+
+	this file is the ts file(typescript code) which include all the logic related to make the template responsie and spa
+
+	we are using the annotation here
+	like @Component 
+	----->
+	 THE ANGULAR USES THE @Component AS A CLASS DECORATOR 
+	WHICH WILL BE ANNOTATE THE CLASS AND TURN THAT CLASS INTO ACTUAL COMPONENT
+
+	what are decorators in angular
+	an angular decorator is a special TypeScript feature which allows you to add the metadata 
+	to a class,method,property or the parameter
+	angular uses the decorators to identify and configure 
+	the components, services, directives, pipes, and modules.
+
+	@Component(
+		{
+			selector:'app-root',...
+		}
+	)
+	export class AppComponent{}
+
+	@Component is the Decorator for the class AppComponent
+		this class is and must be exported using "export"
+		since we are using the Component Selector of this class with "app-root"
+		inside the index.html
+
+	and the @Component decorator can able to define
+	-selector
+	-imports
+	-template
+	-style 
+	of a component
+
+	FUNDAMENTALLY ALL THE COMPONENTS IN ANGULAR ARE CLASS COMPONENTS UNLIKE THE Functional Components in React
+
+/// what we are gonna do is we are gonna change template that is 
+	app.component.html
+	<h1> this is for testing of App Component template...</h1>
+
+/// Data Interpolation in Angular
+	it is a process of binding data from the Class Component to its template
+	assuming that we are declaring a variable inside the AppComponent
+
+	@Component {..........}
+	export class AppComponent
+	{
+		title = "first component"
+	}
+	
+	we can able to access that variable from the template with syntax something like this
+	<h1>{{title}}</h1>
+
+	this is one-way binding called data interpolation in angular
+
+/// assuming that we can able to check oneway binding
+	inside the component 
+	
+	mystr="";
+	Clicked()
+	{
+		console.out(mystr);	
+	}
+
+	inside the template
+
+	<input type="text" value={{mystr}}>
+	<button type="button" (click)="Clicked()">
+
+	>>>> the output of this will be "" "" null
+	 because the binding of data cannot be done from template to component....
+
+
+/// let us add a list of items and remove them via AppComponent
+
+	first add few temp string in the list and display them 
+	list : string[] = ['hi','hello','ram','ravi']
+
+	for displaying every item inside the list we gotta iterate/loop it
+
+	LOOPS IN ANGULAR TEMPLATE 
+	THE LOOPS ARE WE HAVE TO IMPORT A MODULE
+	--CommonModule
+
+	import {CommonModule} from '@angular/common';
+	@Component
+	{
+		selector: 'app-root',
+		import: [CommonModule],
+		template: 'app/app.component.html',
+		styles: 'app/app.component.css'
+	}
+	export class AppComponent
+	{
+		....
+	}
+
+	HERE INORDER TO USE A LOOP INSIDE THE TEMPLATE WE HAVE TO IMPORT THAT MODULE INSIDE THE 
+	CLASS COMPONENT DECORATOR
+
+	// USING THE LOOP
+
+	<h1 *ngFor="let item in list"> 
+		{{item}}
+	</h1>
+
+	here the syntax for loop is very unique 
+	*ngFor = "let item in list"
+
+// similarly we wanted to add a button beside each item 
+click means delete
+but we need id for that to remove 
+what method do we got to remove an item from a list 
+splice,split,remove??
+
+
+export class AppComponent
+{
+	list:string[] = ["hi","hello","ram","ravi"];
+	mystr="";
+	AddItem()
+	{
+		this.list.push(this.mystr);
+	}
+	RemoveItem(index:any)
+	{
+		this.list.splice(index,1);
+	}
+}
