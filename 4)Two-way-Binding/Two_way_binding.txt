@@ -1,0 +1,94 @@
+/// 
+previously we got an issue when we are using the data interpolation to map the 
+variables inside the component class into the template
+
+we can able to use the variable which are declared inside the class component 
+but we cannot edit or modify the attributes from the template which are mapping in the class component
+
+the solution for this issue is Two-Way-Binding 
+this mechanism is very key functionality which angular provides
+
+
+/// understanding how the two-way-binding works
+the mechanism of sending the values form the view that is the html to the ts file is very crucial
+
+the traditional way to implement this is by key event 
+we have to consider the (keypress) evnet and we have to catch it with
+(keypress)='onKeyPress($event)'
+inside the html and 
+
+inside the ts file we have to 
+manually handling the keypress event 
+add we have to maintain the variables for storing the keys 
+and another function for adding it into the list
+and also we have to empty each variable after being pushed into the stack
+
+all this work is being done to send and store the data from the input text boxes in the html 
+into the list which are inside the ts file
+
+for instance we were doing something like this
+
+input type='button' (click)='Event(value)'
+
+export class AppComponent
+{
+	Event(str:any)
+	{
+		console.log(str);
+	}
+}
+
+/// THE SOLUTION FOR THIS IS NgModule FOR TWOWAYBINDING....
+assume a scenario of pushing and popping of a string from a list
+
+********NOTE*********
+IN ORDER TO USE THE ngModel WE HAVE TO IMPORT THE FromsModule inside the @Component
+import 
+
+export class AppComponent
+{
+	item:string="";
+	list:string[]=['hi'];
+
+	Additem()
+	{
+		this.list.push(this.item);
+		this.item="";
+
+		this will push the null inside the list even though we have used the data interpolation
+		like {{}} so....
+
+		IF YOU WANT A TWO WAY VARIABLE WHICH CHANGES INSIDE THE TEMPLATE ASWELL AS IN
+		TS FILE THEN THATS TWO WAY BINGDING
+	}
+}
+
+template:
+
+<input type="text" [(ngModel)]="item"/>
+this syntax must follow these rules
+->inside the template we have to use the 
+	[(ngModel)] = 'variable_identifier';
+	the identifiers from ts file and template should always match in order to twowaybind
+
+	-----------------------------------------
+THERE IS ANOTHER WAY TO BIND
+WE CAN DO THIS BY SIMPLY STORING THEM AS OBJECT ARRAYS
+
+	// this is an object which is implementing the twoway binding.....
+	values:any={item:'',type:''};
+
+additem(){
+    	this.items.push(this.values.item+","+this.values.type);
+    	this.values={item:'',type:''};
+}
+
+Step5:
+		
+FOR USING THESE WE HAVE TO IMPLEMENT LIKE THIS
+																object.property
+<input type="text" name="item" [(ngModel)]="values.item">     <--values.item
+<input type="text" name="type" [(ngModel)]="values.type">	<--values.type
+<li *ngFor="let item of items">
+    	{{item.item}},{{item.type}}
+</li>
