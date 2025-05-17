@@ -1,0 +1,66 @@
+/// 
+
+HOW CAN WE ESTABLISH COMMUNICATION BETWEEN TWO COMPONENTS 
+WHICH ARE INSIDE THE ROOT COMPONENT?
+
+how can we able to pass the values form one component to other component ..
+is what component communication means...
+
+/// 
+
+what we are assuming is
+	->app component(base)
+		-> first component(parent)
+			->second component(child inside the first component)
+
+///
+
+how to pass the params from parent to child and child to parent
+SOLUTION IS @Input and @Output Directives in Angular...
+DIRECTIVES....
+@Input lets the parent component update data inside the child component 
+@Output lets the child component send data to the parent component
+
+1)@Input()
+
+	let me make it clear for you
+	this @Input directives is used for sending the data from the parent component
+	to the child component
+	
+	firstcomponent to second component
+
+	--Process 
+
+		we have to declare the variable/object via @Input Directive inside the child component
+		that is we have to
+		
+		1)
+			declare a variable inside the SecondComponent.ts with @Input Directive
+			import { Input } from '@angular/core';
+			export class SecondComponent
+			{
+				@Input fparent:string ="";
+			}
+
+		2) 
+			we have to use this @Input Directive from the parent component's 
+			template
+
+			THERE WE HAVE TO FOLLOW A SPECIFIC SYNTAX FOR ACHEIIVING THAT
+
+			the data from the parent component to the child component is sent
+			via child selector
+			and using the input directive fron inside the child selector
+
+			<app-second [second_component_variable]='first_component_variable' ></app-second>
+
+			which means we are already having a twowaybinded variable which if of first-component's
+			like 
+			export class FirstComponent
+			{
+				fmsg:string="";
+			}
+			//template
+
+			<input type='text' [(ngModel)]='fmsg' />
+
