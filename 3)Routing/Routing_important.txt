@@ -1,0 +1,46 @@
+///
+
+these are the thing which you must never forget when you want to achieve routing in angular
+
+1) creating the child components is crucial like if you want to create child components
+
+do something like this
+ng g c child1
+ng g c child1/child11
+ng g c child1/child12
+ng g c child2
+
+2) after creating the components we need to mandatorily use the 
+	<router-outlet> inside the root component else this routing wont work
+	
+	also import the RouterOutlet inside the ts file
+3) next thing is setting the routes inside the app.routes.ts file
+
+	the syntax for routing is important
+
+	const routes:Routes = [
+		{ path: "/",component: Child1Component,children: 
+			[
+			{ path:"child11",component: Child11Component }
+			]
+		}
+		{
+			path:"",
+			component:Child2Component
+		}
+	];
+
+4) after configuring your routes inside routes.ts you are good to go test them via hyperlinks in the template
+
+	app.component.html
+
+	<nav>
+		a.routerLink="/" routerLinkActive="active">Child1<a>
+		a.routerLink="/" routerLinkActive="active">Child1<a>
+		// you know this...
+	</nav>
+
+	<router-outlet>
+
+5) and important mention is that we need to import the 
+	RouterLinks and RouterOutlets on specific and correct locations
