@@ -1,0 +1,50 @@
+///
+
+we can able to send the data via routing mechanism 
+that is called passing the RouteParams
+
+sending data in the routing via routing params 
+like 
+we have to set the configuration of the path inside the app.routes.ts
+
+somthing like
+const routes:Routes=[
+	{ path: '\contact\:id' component:ContactComponent }
+];
+	
+and we can just send the data like 
+localhost:4200/contact/1
+	
+or by using the routelink
+
+<a href="#" [routeLink]="['/contact',1]" >contact</a><br>
+	
+
+BUT WE CAN SEND BUT HOW TO RECEIVE OR ACCEPT THE PARAMS IN ROUTING 
+
+2 ways:
+	
+1)
+	implement the ngOnit with our component class  and also use the constructor with activatedroutes as a parameter
+	id:string='';
+	constructor(private route: ActivatedRoute ){}		
+	// cause we are using the route object inside the ngOnit function
+	inside the 
+	ngOnit():void
+	{
+			this.id= this.route.snapshot.paramMap.get('id');
+	}
+
+	
+2) or by observables in js
+	subscribing to the paramMap Observable
+	that is similar to of this but all we have  to do is we have to subscribe to the paramMap
+
+	this.route.paramMap.subscribe((params:ParamMap)=>
+	{
+		this.id=params.get("id");
+	});
+		
+	since it does not have a complete method 
+	the observer can and will able to listen to this observable all the time 
+	i think we just have implemented the next method for subscribing to the paramMap method
