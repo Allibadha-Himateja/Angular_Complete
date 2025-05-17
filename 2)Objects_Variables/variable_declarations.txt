@@ -1,0 +1,31 @@
+THERE IS SOME SYNTAX WHICH IS NEEDED TO BE FOLLOWED TO DECLARE ANY TYPE OF VARIABLE IN ANGULAR
+
+type declaration of angular
+FOUR TYPE OF DECLARATIONS 
+1) declaring type and its value in one statement
+
+	var [identifier]:[type-annotation]=value;
+
+	example 
+	var str:string='random string';
+
+2) declare type but not with the value
+	
+	var [identifier]:string;
+	
+3) declare with value but not with the type
+	
+	var [identifier]=value;
+
+4) declare with neither the value not with the type determines the any type in angular
+	
+	var [identifier];
+
+
+// IN THE ANGULAR THERE IS ALSO THE TYPE ASSERTION
+
+	var num=1;
+	var str:string= <string><any>num;
+
+	here we have  explicitly converted the type of num
+
