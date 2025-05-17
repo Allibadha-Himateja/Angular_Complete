@@ -1,0 +1,108 @@
+// 
+this file contains the flowing mechanism of how an angular application works
+and what makes it work....
+
+let us understanding everything which is happening in the process of creating an angular application to 
+executing the angular application and rendering it into the browser in detail...
+
+// STARTING WITH PROCESS OF UNDERSTANDING THE HOW THE ANGULAR APPLICATION IS ACTUALLY CREATED
+
+--> ng new -----
+
+whats happening behind the scenes
+the command which we wrote will trigger the angular Cli
+the angular cli code which is related to "ng new" will be executed in the background
+
+-THE ng command is global executable command(installed by npm)
+-the ng launcher:
+	locates the angularcli package in node_modules/@angular/cli
+	Bootstraps the CLI's Compiled javascript code
+	passes your command (new) and arguments...
+	Written in TypeScript (source code)
+	Transpiled to JavaScript during publishing to npm
+	Runs via Node.js (not a native binary)
+	--SO NODE.JS IS RESPONSIBLE FOR HANDLING THE ANGULAR/CLI and that will execute all the ng commands 
+		globally inside your system....
+- the ng new command executes a js code which uses schematice for generating all the
+	files inside the angular application 
+	// @angular/cli/src/commands/new/cli.ts
+	export class NewCommand {
+	  async run(options: NewCommandOptions) {
+		// 1. Validate project name/options
+		// 2. Create project directory
+		// 3. Run the Angular 'application' schematic  This does the real work
+		await this.runSchematic({
+		  collectionName: '@schematics/angular',
+		  schematicName: 'application',
+		  options: schematicOptions // (your CLI flags converted)
+		});
+	  }
+	}
+- THEREFORE THE ANGULAR SCHEMANTICS WILL GENERATE ALL THE RELATED FILES INTO YOUR APPLICATION...
+
+--> ng serve
+
+the ng is global npm command
+so the serve is passed to the code which handles the "serve" logic 
+similar to the mechanism of schematics the serve follows specific order of execution
+	-> first is command execution
+		done via node.js for loading cli and serve code
+	-> Compilation Setup 
+		since the angular is build with typeScript 
+		the compilation is configured with typescript compiler "tsc"
+		it compiles .ts to .js files
+		// important part is compilation of Components
+		the Angular Template Compilation is done via (JIT)
+		 converts  <h1>{{title}}</h1>
+		 to render functions
+		 function AppComponent_Template(rf, ctx) {
+		  if (rf & 1) {
+			elementStart(0, "h1");
+			text(1);
+			elementEnd();
+		  }
+		  if (rf & 2) {
+			advance(1);
+			textInterpolate(ctx.title);
+		  }
+		}
+	-> Bundling Process
+		analyze all the import statements
+		builds the complete module dependency tree
+		like generates the following files
+		-runtime.js
+		-main.js
+		-polyfills.js
+		-styles.js
+		-vendor.js
+
+	-> Dev Server Launch
+		- Server initialization at http://localhost:4200 by default
+		- Sets up Hot Module Replacement
+		File Watching
+		watches continues changes in 
+			typescript files
+			templates
+			styles
+			assets
+
+	-> Browser Loading
+		- index.html loads first
+		- auto injected Scripts (runtime.js,polyfills.js,main.js)
+		- Angular Bootstrap 
+			main.js executes the bootStrap(appModule)
+			renders the app component (<app-root>)
+		-Change Detection System (Zone.js)
+			for monitoring
+			-Dom evnets
+			-timers
+			-Ajax Calls
+			
+	--IMPORTANT NOTE
+		Initial Compilation (First Load)
+		All Components Are Compiled Upfront
+		When you first run ng serve, the Angular CLI:
+			Compiles every component (.ts, .html, .css)
+			Bundles them into main.js (or lazy-loaded chunks
+			This includes both JIT (Just-in-Time) and AOT (Ahead-of-Time) compilation
+		Only the modified component is recompiled
