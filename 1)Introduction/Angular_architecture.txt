@@ -1,0 +1,91 @@
+//
+ NOW LET US UNDERTAND THE ARCHITECTURE OF AN ANGULAR APPLICATION
+
+tha angular is purely component based framework which build
+spa's on components(single page application) 
+
+the fundamental structure of the angular starting with 
+
+src folder
+-> inside we are having..
+-> app folder
+-> index.html
+-> main.ts
+-> or maybe styles.css too
+
+FOCUSING ON THE "src" FOLDER WE ARE HAVING TWO Important parts of the project
+- index.html : this index.html is the file which is rendered by the browser first
+  everthing inside this index.html is displayed inside the browser after rendering the angular application..
+
+- main.ts : 
+ to understand the role of the main.ts file we gotta understand the flow of an angular application 
+
+
+// there are lisit of files which are very important to know before understanding the flow of an angular application
+
+-->angular.json = configures the ng build,ng serve,ng test commands(operations of angular cli are configured in this file)
+-->package.json = for installing all the node packages..
+-->tsconfig.app.json = this is a typescript configuration file for specific application(applies on angular app not on libs,tests)
+-->tsconfig.json = this is the root typescript configuration file for entire workspace
+					involves compileroptions
+
+// UPON ENTERING INTO THE src folder well have 
+->app folder
+	->app.component.css
+	->app.component.html
+	->app.component.specs.ts
+	->app.component.ts
+	->app.config.ts
+	->app.routes.ts
+->index.html
+->main.ts
+->styles.css
+
+// this is the fundamental architecute of an angular application
+
+///	NOW WE HAVE TO UNDERSTAND HOW THE ANGULAR APPLICATION Created and upto how its rendered into the browser
+
+-- ng new 
+	creates angular cli scaffolds 
+	-- created the src folder,
+	-- angular.json (builds configuration)
+	-- package.json (install dependensies)
+	// root files creation
+	-- src/main.ts (Entry Point)
+	-- src/app/app.modules.ts(root module)
+	-- src/app/app.component.ts (root component)
+	-- src/index.html (host html)
+
+// browser execution
+
+--Loading index.html
+	the browser finds the src/index.html for initializing the rendering of application 
+	it specifically searches the <COMPONENT SELECTOR> something like <app-root></app-root>
+
+	so we are going to include the root component inside the src/index.html which ROOT COMPONENT INIT
+-- bootstrapping the main.ts file
+	inside the main.ts file we are having specific method callings 
+
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
+
+bootstrapApplication(<component name>,<configure file>).catch((err)=>{// something to handling the err})
+
+// WHAT IS BOOTSTRAPPING YOU ASK ME?
+	bootstrapping is a process of launching and initializing an angular application
+	by loading its root module and root component
+
+
+	in simple terms adding the root component code into the browsers DOM
+	by loading everything which are defined inside the root module 
+	and by displaying the root.component code which holds all the responsive logic of javascript
+
+
+// WHAT DID I MEAN IS ANGULAR APPLICATION WILL START THE APPLICATION 
+BY LOADING THE MODULE AND CONFIGURATION FILES FIRST AND NEXT THE MARKUP AND COMPONENT.TS FILES NEXT 
+
+IT FOLLOWS A SPECIFIC PROCESS FOR LOADING AND RENDERING THE APPLICATION...
