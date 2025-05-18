@@ -1,0 +1,9 @@
+<p>first works!</p>
+<p>Enter the msg to send to child:</p>
+<input type="text" [(ngModel)]="fmsg" />
+<p>this is from child:{{fromchild}}</p>
+
+<app-second [fromparent]="fmsg" (SendToParent)="RecieveChildMsg($event)"></app-second>
+
+
+
