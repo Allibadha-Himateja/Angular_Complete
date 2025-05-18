@@ -63,4 +63,81 @@ DIRECTIVES....
 			//template
 
 			<input type='text' [(ngModel)]='fmsg' />
+			<app-second [fparent]="fmsg"></app-second>
+				
+		THIS IS ALL REQUIRED TO SEND THE DATA FROM THE PARENT TO THE CHILD 
 
+2)@Output 
+	This Directive is very unique from the Input Directive 
+	HOW TO ACTUALLY SEND THE DATA FROM THE CHILD COMPONENT TO THE PARENT COMPONENT
+
+	THE PROCESS OF SENDING THE DATA FROM THE CHILD TO THE PARENT INVOLVES 
+	CONCEPT CALLED THE EVENT EMITTER
+	it is a similar topic of delegates in C#
+	we have to send the event emitter from the second component to first component 
+	in order to call that event of second component from the first component itself
+
+	understanding the flow....
+
+	1) we have to declare a variable inside the second component
+		smsg:string = "";
+		and a button to for calling a function
+
+	2) the func will probably be
+
+		<input type='button' (click)="SecondMsgChanged()"
+
+	3) for handling that call we have to write a function
+		
+		first we have to reclare the eventEmitter inside the second component
+		
+		@Output secondmsgchanged:EventEmitter<string> = new EventEmitter<string>();
+
+		and then the function
+		SecondMsgChanged()
+		{
+			return this.secondmsgchanged.emit(this.smsg);
+		}
+
+	4) HOW DO WE ACTUALLY USE THIS EVENT EMITTER FROM THE PARENT TEMPLATE
+
+		VIA SELECTOR
+
+		<app-second (SecondMsgChanged)="OnSecondMsgReceived($event)"></app-second>
+
+		we have to declare a new function
+
+		OnSecondMsgReceived($event:any)
+		{
+			console.log($event);
+		}
+
+///
+I KNOW THAT YOU HAVE NOT UNDERSTOOD ANYTHING ABOUT THE OUTPUT DIRECTIVE
+
+	@Output Declarative of EventEmitter object which will be used 
+	inside the function which is triggered by the click event inside the second component
+
+	that event action will trigger the emit action of that @Output EventEmitter object
+	this.eventemitterobject.emit(//what you want to sent to parent which is in this case is string object//);
+
+	for catching we are handled it like
+
+	<app-second [secondfmsg]="firstfmsg"  (OnSecondsMsgChanged)="OnSecondsMsgRecieved($event)">
+
+	the important part is
+	(OnSecondsMsgChanged)="OnSecondsMsgReceived($event)"
+	
+	()==== syntax to handle the function (FOR OUTPUT)
+	[]====syntax for setting an object (FOR INPUT)
+	OnSecondsMsgChanged is the function which handles the emit inside the second component
+	
+	and also 
+	OnSecondsMsgReceived($event)
+	this is the function which we must declare inside the first component and we get the data 
+	using the $event object
+
+	ante when we click the send button we are calling the function
+	which will emit the data<string> type to the function at the first component as event 
+	simply said emit and ah function call avtadhi ra ante using 
+	the data will be sent to that function as event (argument)
