@@ -1,0 +1,51 @@
+///
+
+
+what is httpclient
+
+the httpclient is an object which is used for http(hypertext trafer protocol)
+communication , allowing the applications to interact with the webapi's or websites
+
+we can able to use the methods 
+get,post,put,delete....
+
+ACTUALLY THIS SPECIFIC TOPIC IS RELATED TO JAVASCRIPT TOPICS LIKE
+-fetchapi
+-xmlhttprequest 
+in js
+
+for we able to communicate with the backend api's from the angular application
+we have to use this httpclient ...
+
+/// PROCEDURE TO IMPLEMENT THE HTTPCLIENT
+
+we have to make use of the ngOnInit() overload in order to use the httpclient object
+but before that we have to get the instance for this httpclient from the
+DEPENDENCY INJECTION through constructor
+
+export class AppComponent
+{
+	constructor(private http:HttpClient)
+	{}
+
+	ngOnInit():void
+	{
+		this.http.get("url").subscribe(
+			data=>console.log(data);
+		)
+		// .get method is not for posting the data from the app to server
+		// and in .get method we can able to pass the query params via url
+		// http://localhost:7094/api/product?id:20
+
+	}
+}
+
+/// the subscirbe is for handling the response back from the server 
+we have to understand a topic called observables in js to better understanding of
+how the .subscribe method works.....
+
+///
+ MOST CRUCIAL STEPS FOR IMPLEMENTING THE HTTPCLIENT 
+
+ 1)importing the httpclient in the component as usual
+ 2) importing the HttpModule inside the app.config.ts or module file
