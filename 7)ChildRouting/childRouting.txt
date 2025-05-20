@@ -1,0 +1,56 @@
+///
+
+Child Routing is an Extention of Routing in Angular
+
+it is also called the nested Routing
+the question was to implement the child routing on 
+
+-MenuComponent(base component)
+	-ProductComponent
+		-new Component
+		-edit Component
+	-CustomerComponent
+
+the childrouting is focussed on routing in general
+
+assuming that we are taking three components
+
+-balance component
+-withdraw 
+-deposit
+	-deposit A
+	-deposit B
+inside deposit we are having two child components
+
+
+steps 
+we have to manually create all these components
+balance component
+withdraw component
+deposit component
+deposita component
+depositb component
+
+
+
+the routing will be done is 
+export const routes: Routes = [
+    {path:'home',component:AppComponent},
+    {path:'balance',component:BalanceComponent},
+    {path:'withdraw',component:WithdrawComponent},
+    {path:'deposit',component:DepositComponent,children:
+        [
+            {path:'coins',component:DepositAComponent},
+            {path:'notes',component:DepositBComponent},
+        ]
+    }
+];
+
+and in the deposit component
+in ts file
+import { RouterLink, RouterOutlet } from '@angular/router';
+
+inside the view
+<br>
+<a routerLink="coins">For_Coins</a><br>
+<a routerLink="notes">For_Notes</a>
